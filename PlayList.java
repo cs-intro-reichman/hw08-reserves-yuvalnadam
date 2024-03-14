@@ -277,26 +277,23 @@ class PlayList {
      *  the list on which it was called (this list). */
     public void sortedInPlace() {
 
+                for (int i = 0; i < size ; i++ ) {
 
-        for (int i = 0; i < size - 1 ; i++ ) {
+                    Track temp = tracks[i];
+                    int min = minIndex(i);
 
-                int index = minIndex(i);
-                if(index != -1)
-                {
-                    Track temp = tracks[index];
-
-                    if (index != i) {
-
-                        tracks[index] = tracks[i]; 
-                        tracks[i] = temp; 
-
+                    if (tracks[i] != null && min != -1) {
+                        tracks[i] = tracks[min];
+                        tracks[min] = temp;
+                        
+                    }
+                    
+                    
                 }
-               
-              }
              }
         //}
         // Uses the selection sort algorithm,  
         // calling the minIndex method in each iteration.
         //// replace this statement with your code
-    }
+    
 }
