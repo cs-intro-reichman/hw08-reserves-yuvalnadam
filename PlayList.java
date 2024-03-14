@@ -39,7 +39,7 @@ class PlayList {
         if(size == maxSize)
             return false;
         else{
-            tracks[size + 1] = track; //appends the track at the next free space (end of the list)
+            tracks[size] = track; //appends the track at the next free space (end of the list)
              size++;
 
         }
@@ -54,8 +54,14 @@ class PlayList {
         StringBuilder list = new StringBuilder();
         for (int i = 0; i < size ;i++ ) {
 
+            if (tracks[i] != null) {
+
+            list.append("\n");
+
             list.append(tracks[i].toString());
             list.append("\n");
+                
+            }
             
         }
 
@@ -70,6 +76,7 @@ class PlayList {
 
                 tracks[size -1] = null;
                 size--;
+
                   }
 
     }
@@ -78,10 +85,14 @@ class PlayList {
     public int totalDuration() {
         
         int totalDur = 0; 
-        for (int i =0; i < size ; i++ ) {
+        for (int i = 0; i < size ; i++ ) {
 
-            Track current = tracks[i];
-            totalDur += current.getDuration();
+            if (tracks[i] != null) {
+
+                  Track current = tracks[i];
+                 totalDur += current.getDuration();
+            }
+          
             
         }
 
@@ -94,12 +105,15 @@ class PlayList {
 
             for (int i = 0; i < size ; i++ ) {
 
-                if (tracks[i].getTitle().equals(title)) {
+                if (tracks[i] != null) {
+
+                    if (tracks[i].getTitle().equals(title)) {
 
                     return i; 
                     
                 }
-                
+                    
+                }
             }
 
         return -1;
@@ -116,13 +130,13 @@ class PlayList {
         if(size == maxSize || i < 0 || i > maxSize)
             return false;
 
-        else if (i == maxSize) {
-                tracks[size + 1] = track; //appends the track at the next free space (end of the list)
+        else if (i == size) {
+                tracks[size] = track; //appends the track at the next free space (end of the list)
                 size++;
             }
         else
         {
-            for (int j = size -1; j >= i; j--) {
+            for (int j = size; j >= i; j--) {
                 
                 tracks[j + 1] = tracks[j];
             }
@@ -139,15 +153,15 @@ class PlayList {
      *  does nothing and returns -1. */
     public void remove(int i) {
 
-            if(size == 0 || i < 0 || i > maxSize)
+            if(size == 0 || i < 0 || i >= maxSize)
             {
-               // return -1; should freturn nothing?
+               return;
             }
             else{
 
                 tracks[i] = null; 
 
-                for (int j = i + 1; j < size - 1; i++) {
+                for (int j = 1 + 1 ; j < size; j++) {
 
                     tracks[j - 1] = tracks[j];
                     
@@ -189,12 +203,9 @@ class PlayList {
 
         if (size + other.size <= maxSize) {
             
-            for (int i = size - 1; i < size + other.size ; i++ ) {
+            for (int i = 0 ; i <= other.size ; i++ ) {
 
-                for (int j = 0; j < other.size; j++ ) {
-
-                    tracks[i] = other[j];                    
-                }
+                add(other.getTrack(i));
                 
             }
         }
@@ -208,19 +219,21 @@ class PlayList {
      */
     private int minIndex(int start) {
 
-        if (start < 0 || start > size - 1) {
+        int index = start;
+       
+        if (start < 0 || start >= size || tracks[start] == null) {
 
             return -1;
         }
 
-        int min = tracks[start].getDuration();; 
-        int index = start;
-
+        
         else
         {
-            for (int i = start; i <= size - 1 ; i++) {
+            int min = tracks[start].getDuration();; 
+
+            for (int i = start + 1; i < size; i++) {
                 
-                if(tracks[i].getDuration() < min)
+                if(tracks[i] != null && tracks[i].getDuration() < min)
                 {
                     min = tracks[i].getDuration(); 
                     index = i;        
@@ -236,8 +249,26 @@ class PlayList {
     /** Returns the title of the shortest track in this list. 
      *  If the list is empty, returns null. */
     public String titleOfShortestTrack() {
-        
-        return tracks[minIndex(0)].getTitle();
+
+     /*   if (size == 0) {
+
+            return "";
+            
+        }
+
+        else
+        {*/
+            int shortIndex = minIndex(0);
+            if (shortIndex != -1) {
+
+                return tracks[shortIndex].getTitle();
+                
+            }
+
+            return "";
+
+       // }
+
     }
 
     /** Sorts this list by increasing duration order: Tracks with shorter
@@ -245,6 +276,25 @@ class PlayList {
      *  rather than returning a new, sorted playlist, the method sorts
      *  the list on which it was called (this list). */
     public void sortedInPlace() {
+
+
+        for (int i = 0; i < size - 1 ; i++ ) {
+
+                int index = minIndex(i);
+                if(index != -1)
+                {
+                    Track temp = tracks[index];
+
+                    if (index != i) {
+
+                        tracks[index] = tracks[i]; 
+                        tracks[i] = temp; 
+
+                }
+               
+              }
+             }
+        //}
         // Uses the selection sort algorithm,  
         // calling the minIndex method in each iteration.
         //// replace this statement with your code
