@@ -56,8 +56,6 @@ class PlayList {
 
             if (tracks[i] != null) {
 
-            list.append("\n");
-
             list.append(tracks[i].toString());
             list.append("\n");
                 
@@ -130,15 +128,15 @@ class PlayList {
         if(size == maxSize || i < 0 || i > maxSize)
             return false;
 
-        else if (i == size) {
+         if (i == size) {
                 tracks[size] = track; //appends the track at the next free space (end of the list)
                 size++;
             }
         else
         {
-            for (int j = size; j >= i; j--) {
+            for (int j = size; j > i; j--) {
                 
-                tracks[j + 1] = tracks[j];
+                tracks[j] = tracks[j - 1];
             }
             tracks[i] = track;
 
@@ -161,7 +159,7 @@ class PlayList {
 
                 tracks[i] = null; 
 
-                for (int j = 1 + 1 ; j < size; j++) {
+                for (int j = i + 1 ; j < size; j++) {
 
                     tracks[j - 1] = tracks[j];
                     
