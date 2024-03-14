@@ -203,7 +203,7 @@ class PlayList {
 
         if (size + other.size <= maxSize) {
             
-            for (int i = 0 ; i <= other.size ; i++ ) {
+            for (int i = 0 ; i < other.size ; i++ ) {
 
                 add(other.getTrack(i));
                 
