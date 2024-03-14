@@ -56,8 +56,10 @@ class PlayList {
 
             if (tracks[i] != null) {
 
-            list.append(tracks[i].toString());
             list.append("\n");
+
+
+            list.append(tracks[i].toString());
                 
             }
             
