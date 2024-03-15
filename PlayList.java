@@ -74,7 +74,7 @@ class PlayList {
 
             if (size != 0) {
 
-                tracks[size -1] = null;
+                tracks[size] = null;
                 size--;
 
                   }
@@ -250,14 +250,8 @@ class PlayList {
      *  If the list is empty, returns null. */
     public String titleOfShortestTrack() {
 
-            int shortIndex = minIndex(0);
-            if (shortIndex != -1) {
+        return tracks[minIndex(0)].getTitle();
 
-                return tracks[shortIndex].getTitle();
-                
-            }
-
-            return "";
 
     }
 
