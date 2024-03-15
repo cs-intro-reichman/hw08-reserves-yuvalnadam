@@ -88,9 +88,7 @@ class PlayList {
         for (int i = 0; i < size ; i++ ) {
 
             if (tracks[i] != null) {
-
-                  Track current = tracks[i];
-                 totalDur += current.getDuration();
+                 totalDur += tracks[i].getDuration();
             }
           
             
@@ -102,6 +100,8 @@ class PlayList {
     /** Returns the index of the track with the given title in this list.
      *  If such a track is not found, returns -1. */
     public int indexOf(String title) {
+
+//            title = title.toLowerCase();
 
             for (int i = 0; i < size ; i++ ) {
 
@@ -250,14 +250,6 @@ class PlayList {
      *  If the list is empty, returns null. */
     public String titleOfShortestTrack() {
 
-     /*   if (size == 0) {
-
-            return "";
-            
-        }
-
-        else
-        {*/
             int shortIndex = minIndex(0);
             if (shortIndex != -1) {
 
@@ -266,8 +258,6 @@ class PlayList {
             }
 
             return "";
-
-       // }
 
     }
 
