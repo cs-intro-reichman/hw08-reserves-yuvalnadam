@@ -23,9 +23,6 @@ class RuniFi {
         // Displays the list
         display("My list", myList);
 
-        System.out.println(myList.titleOfShortestTrack());
-
-
         // Displays the total duration
         System.out.println("\nTotal time duration of my list (in seconds):" + myList.totalDuration());
 
@@ -69,9 +66,6 @@ class RuniFi {
         // Sorts the list 
         myList.sortedInPlace();
         display("My list after sorting by increasing duration", myList);
-
-        System.out.println(myList.totalDuration());
-
     }
 
     private static void display(String str, PlayList list) {
